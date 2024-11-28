@@ -39,7 +39,7 @@ class CoursesController < ApplicationController
 
   def destroy
     @course.destroy
-    render json: { message: "Course deleted" }
+    head :no_content
   end
 
   private
