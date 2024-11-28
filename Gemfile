@@ -33,6 +33,8 @@ gem "thruster", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
+gem "kaminari"
+
 group :development, :test do
   gem "ffaker"
   gem "byebug", platform: [:mri, :mingw, :x64_mingw]
