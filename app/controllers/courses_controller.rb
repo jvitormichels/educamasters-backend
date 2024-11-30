@@ -5,7 +5,8 @@ class CoursesController < ApplicationController
     page = params[:page].to_i.zero? ? 1 : params[:page]
     per_page = params[:per_page].to_i.zero? ? 10 : params[:per_page]
 
-    courses = Course.all.page(page).per(per_page)
+    courses = Course.where("end_date >= ?", Date.current)
+              .page(page).per(per_page)
 
     metadata = {
       total_count: courses&.total_count,
@@ -26,6 +27,7 @@ class CoursesController < ApplicationController
   end
 
   def create
+    # ajustar para retornar corretamente em caso de falha na criação devido à ausência de parâmetros obrigatórios
     course = Course.create(course_params)
 
     render json: course.format_api, status: :created
@@ -52,6 +54,6 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:name, :description)
+    params.require(:course).permit(:name, :description, :end_date)
   end
 end
