@@ -27,7 +27,7 @@ RSpec.describe CoursesController, :type => :controller do
 
     context 'Para 1 curso existente' do
       before :each do
-        Course.create(name: FFaker::Education.degree, description: FFaker::Lorem.paragraph)
+        Course.create(name: FFaker::Education.degree, end_date: Date.today)
         get :index
         @parsed_response_body = JSON.parse(response.body)
       end
@@ -68,7 +68,8 @@ RSpec.describe CoursesController, :type => :controller do
 
     context "Para um ID de curso válido" do
       before :each do
-        @course = Course.create(name: FFaker::Education.degree, description: FFaker::Lorem.paragraph)
+        @data = { name: FFaker::Education.degree, description: FFaker::Lorem.paragraph, end_date: "2002-04-15" }
+        @course = Course.create(@data)
         get :show, params: { id: @course.id }
         @parsed_response_body = JSON.parse(response.body)
       end
@@ -76,10 +77,9 @@ RSpec.describe CoursesController, :type => :controller do
       it "Retorna os dados do curso correspondente" do
         expect(@parsed_response_body).to eq({
           "id" => @course.id,
-          "name" => @course.name,
-          "description" => @course.description,
-          "created_at" => @course.created_at.as_json,
-          "updated_at" => @course.updated_at.as_json
+          "name" => @data[:name],
+          "description" => @data[:description],
+          "end_date" => @data[:end_date]
         })
       end
 
@@ -92,7 +92,7 @@ RSpec.describe CoursesController, :type => :controller do
   describe "POST #create" do
     context 'Com parâmetros válidos' do
       before do
-        @data = { name: FFaker::Education.degree, description: FFaker::Lorem.paragraph }
+        @data = { name: FFaker::Education.degree, description: FFaker::Lorem.paragraph, end_date: "2002-04-15" }
         post :create, params: {course: @data }
         @parsed_response_body = JSON.parse(response.body)
       end
@@ -106,6 +106,11 @@ RSpec.describe CoursesController, :type => :controller do
       it 'Retorna status de recurso criado (201)' do
         expect(response).to have_http_status(:created)
       end
+    end
+
+    context 'Sem fornecer vazios' do
+      it 'Não cria o curso'
+      it 'Retorna mensagem de erro correspondente'
     end
   end
 
@@ -130,8 +135,8 @@ RSpec.describe CoursesController, :type => :controller do
 
     context "Para um ID válido" do
       before :each do
-        course = Course.create(name: "Vai mudar", description: "Qualquer coisa")
-        @data = { name: "Tecnólogo em Análise e Desenvolvimento de Sistemas", description: "O perfil do profissional formado é o de um empreendedor, com capacidade de trabalho em equipes, dotado de iniciativa na proposta e implementação da solução de problemas e de espírito de cooperação e articulação." }
+        course = Course.create(name: "Vai mudar", description: "Qualquer coisa", end_date: "2002-04-15")
+        @data = { name: "Tecnólogo em Análise e Desenvolvimento de Sistemas", description: "O perfil do profissional formado é o de um empreendedor, com capacidade de trabalho em equipes, dotado de iniciativa na proposta e implementação da solução de problemas e de espírito de cooperação e articulação.", end_date: "2024-11-28" }
         patch :update, params: { id: course.id, course: @data }
         @parsed_response_body = JSON.parse(response.body)
       end
@@ -169,7 +174,7 @@ RSpec.describe CoursesController, :type => :controller do
 
     context "Para um ID válido" do
       before :each do
-        @course = Course.create(name: FFaker::Education.degree, description: FFaker::Lorem.paragraph)
+        @course = Course.create(name: FFaker::Education.degree, end_date: Date.today)
         delete :destroy, params: { id: @course.id }
       end
 
