@@ -3,10 +3,14 @@ class CoursesController < ApplicationController
 
   def index
     page = params[:page].to_i.zero? ? 1 : params[:page]
-    per_page = params[:per_page].to_i.zero? ? 10 : params[:per_page]
+    per_page = params[:per_page].to_i.zero? ? 1 : params[:per_page]
+    query = params[:query].to_s
 
-    courses = Course.where("end_date >= ?", Date.current)
-              .page(page).per(per_page)
+    if query.present?
+      courses = Course.where("name ILIKE ?", "%#{query}%").page(page).per(per_page)
+    else
+      courses = Course.all.page(page).per(per_page)
+    end
 
     metadata = {
       total_count: courses&.total_count,
