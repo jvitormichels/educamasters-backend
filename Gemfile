@@ -34,6 +34,7 @@ gem "thruster", require: false
 gem "rack-cors"
 
 gem "kaminari"
+gem 'carrierwave'
 
 group :development, :test do
   gem "dotenv-rails"
