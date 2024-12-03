@@ -8,4 +8,11 @@ Rails.application.routes.draw do
   resources :courses do
     resources :course_pages
   end
+
+  resources :dashboard, only: [] do
+    collection do
+      get :expired_and_active_courses_storage
+      get :top_courses
+    end
+  end
 end

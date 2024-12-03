@@ -14,7 +14,9 @@ class CoursePagesController < ApplicationController
   end
 
   def create
-    page = CoursePage.create(page_params)
+    file_size = page_params['video']&.size || 0
+    data = page_params.merge({file_size: file_size})
+    page = CoursePage.create(data)
 
     render json: page.format_api, status: :created
   end
