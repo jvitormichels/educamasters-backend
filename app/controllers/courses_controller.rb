@@ -5,12 +5,19 @@ class CoursesController < ApplicationController
     page = params[:page].to_i.zero? ? 1 : params[:page]
     per_page = params[:per_page].to_i.zero? ? 1 : params[:per_page]
     query = params[:query].to_s
+    include_expired = params[:include_expired]
 
-    if query.present?
-      courses = Course.where("name ILIKE ?", "%#{query}%").order(updated_at: :desc).page(page).per(per_page)
-    else
-      courses = Course.all.order(updated_at: :desc).page(page).per(per_page)
+    courses = Course.order(updated_at: :desc)
+
+    if query
+      courses = courses.where("name ILIKE ?", "%#{query}%")
     end
+
+    unless include_expired
+      courses = courses.where("end_date >= ?", Date.today)
+    end
+
+courses = courses.page(page).per(per_page)
 
     metadata = {
       total_count: courses&.total_count,

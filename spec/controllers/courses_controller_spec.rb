@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 require 'ffaker'
-require 'byebug'
 
 RSpec.describe CoursesController, :type => :controller do
   describe "GET #index" do
