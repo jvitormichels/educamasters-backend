@@ -14,7 +14,6 @@ class CoursePagesController < ApplicationController
   end
 
   def create
-    byebug
     page = CoursePage.create(page_params)
 
     render json: page.format_api, status: :created
@@ -27,7 +26,6 @@ class CoursePagesController < ApplicationController
   end
 
   def destroy
-    byebug
     @page.destroy
     head :no_content
   end
@@ -35,7 +33,6 @@ class CoursePagesController < ApplicationController
   private
 
   def set_page
-    byebug
     id = params[:id].to_i
     @page = CoursePage.find_by(id: id)
 
