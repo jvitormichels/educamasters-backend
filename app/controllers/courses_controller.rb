@@ -7,9 +7,9 @@ class CoursesController < ApplicationController
     query = params[:query].to_s
 
     if query.present?
-      courses = Course.where("name ILIKE ?", "%#{query}%").page(page).per(per_page)
+      courses = Course.where("name ILIKE ?", "%#{query}%").order(updated_at: :desc).page(page).per(per_page)
     else
-      courses = Course.all.page(page).per(per_page)
+      courses = Course.all.order(updated_at: :desc).page(page).per(per_page)
     end
 
     metadata = {
