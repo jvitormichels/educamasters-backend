@@ -2,7 +2,7 @@ version: '3'
 services:
   rails:
     build: .
-    command: rails s -b 0.0.0.0
+    command: sh -c "bundle install; rails s -b 0.0.0.0"
     container_name: educamasters
     stdin_open: true
     tty: true
@@ -18,9 +18,12 @@ services:
       - db
   db:
     image: postgres:13.4-buster
+    ports:
+      - 5342:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
     volumes:
       - educamasters_data:/var/lib/postgresql/data
 volumes:
