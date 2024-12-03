@@ -51,7 +51,6 @@ courses = courses.page(page).per(per_page)
   end
 
   def destroy
-    byebug
     @course.destroy
     head :no_content
   end
