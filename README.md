@@ -30,7 +30,7 @@ Os requisitos para esse projeto são:
  <hr/>
 
  # Instruções
- Para rodar este projet, siga os seguintes passos em um terminal:
+ Para rodar este projeto, siga os seguintes passos em um terminal:
  * git clone https://github.com/jvitormichels/educamasters-backend.git
  * cd educamasters-backend
  * make build
