@@ -26,3 +26,26 @@ Os requisitos para esse projeto são:
 
 
 > (GP): Olá Dev, como está indo o progresso do projeto? A gerência acabou de solicitar que implementemos uma nova funcionalidade que exigirá a extração de alguns relatórios dos cursos. Eles estão interessados em ver o tamanho total ocupado pelos vídeos nos cursos. Você acha que isso é possível? Não temos muitas restrições quanto à forma de apresentação, pode ser uma tela, uma query, um relatório ou qualquer outra forma que demonstre claramente o tamanho total ocupado pelos vídeos nos cursos. Tenho interesse em ver como você abordará essa tarefa.
+
+ <hr/>
+
+ # Instruções
+ Para rodar este projet, siga os seguintes passos em um terminal:
+ * git clone https://github.com/jvitormichels/educamasters-backend.git
+ * cd educamasters-backend
+ * make build
+ * make docker
+
+Em um novo terminal, sem fechar o primeiro, faça o seguinte
+ * make bash
+ * rails db:migrate
+
+Este passo é opcional, é o restore do banco a partir de um arquivo .dump, em conjunto com uma pasta de fotos e vídeos que pertencem aos registros do arquivo de dump.
+Os arquivos para restauração do banco encontram-se dentro da pasta /backup.
+* sudo cp -r backup/uploads/ public/
+* sudo docker cp backup/educamasters_backup.sql educamasters-backend_db_1:/tmp/dump.sql
+* pg_restore --host "0.0.0.0" --port "5432" --username "postgres" --no-password --dbname "postgres" --clean --verbose "/tmp/dump.sql"
+
+
+
+
