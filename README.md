@@ -12,8 +12,6 @@ O Gerente de Produto(GP) apresentou à equipe (Dev) a demanda que foi aprovada p
 
 > (Dev): Entendido, GP. A responsividade da visualização de vídeos também será prioridade no desenvolvimento. Vou garantir que os vídeos sejam reproduzidos de forma fluida e que a interface seja adaptada para proporcionar uma experiência de usuário agradável em todos os dispositivos.
 
-*Obs: Essa é uma história fictícia, criada para facilitar a compreensão dos requisitos, não estamos vinculados ao diálogo de desenvolvedores. Use sua criatividade e conhecimentos para montar as telas de cadastros e listagens* :pencil2:
-
 Os requisitos para esse projeto são:
 
 | Requisitos | Descrições
